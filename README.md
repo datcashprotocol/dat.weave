@@ -23,3 +23,10 @@ Show databases
 show dbs
 ```
 
+Display all records from collection
+```
+show dbs
+use <dbs name>
+show collections
+db.<collection name>.find()
+```

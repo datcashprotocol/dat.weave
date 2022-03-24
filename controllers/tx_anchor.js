@@ -8,7 +8,8 @@ function randomString(length) {
 }
 
 exports.tx_anchor = (req, res) => {
-	console.log(req)
+	console.log('tx_anchor')
+	// console.log(req)
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) {

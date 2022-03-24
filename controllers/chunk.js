@@ -1,10 +1,17 @@
 const mongo = require('mongodb')
 
-exports.upload = (req, res) => {
+exports.chunk = (req, res) => {
 	let record = {}
 	const address = ""
 
 	var MongoClient = mongo.MongoClient;
+
+	console.log('/chunk')
+	const body = req.body
+	const offset = body.offset
+	const chunk = body.chunk
+	const data_size = body.data_size
+	console.log(body)
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) throw err;

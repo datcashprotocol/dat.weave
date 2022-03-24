@@ -8,15 +8,22 @@ exports.wallet = (req, res) => {
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) throw err;
-		const arweave = db.db('arweave');
+		const datweave = db.db('datweave');
+		const wallets = datweave.collection('wallets')
 
-		arweave.collection('wallets').findOne({ address: address })
+		wallets.findOne({ address: address })
 		.catch((err) => {
 			console.log(err)
 			if (err) throw err
 		})
 		.then((document) => {
-			res.json(document.winstons)
+			if(document == null || document === undefined) {
+				res.json({})
+			}
+			else {
+				res.json(document.winstons)
+			}
+
 			db.close()
 		})
 	});	

@@ -1,8 +1,8 @@
 const express = require('express')
 
 router = express.Router()
-connect = require('../controllers/connect.js')
+api = require('../controllers/connect.js')
 
-router.get('/', connect.connect)
+router.get('/', api.connect)
 
 module.exports = router

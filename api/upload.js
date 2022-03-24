@@ -1,8 +1,8 @@
 const express = require('express')
 
 router = express.Router()
-upload = require('../controllers/upload.js')
+api = require('../controllers/upload.js')
 
-router.post('/', upload.upload)
+router.post('/', api.upload)
 
 module.exports = router

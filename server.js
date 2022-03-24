@@ -15,12 +15,11 @@ app = express()
 app.use('/', require('./api/connect'))
 // app.use('/mine', require('./api/home'))
 app.use('/mint', require('./api/mint'))
-// app.use('/get', require('./api/home'))
+// app.use('/get', require('./api/get'))
 app.use('/price', require('./api/price'))
 // app.use('/tx', require('./api/home'))
-app.use('/upload', require('./api/upload'))
-// app.use('/wallet', require('./api/home'))
-// app.use('/wallet', require('./api/wallet/balance'))
+// app.use('/upload', require('./api/upload'))
+app.use('/wallet', require('./api/wallet'))
 
 
 const PORT = process.env.PORT || 1984

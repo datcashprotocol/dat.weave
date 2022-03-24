@@ -16,7 +16,7 @@ exports.wallet = (req, res) => {
 			if (err) throw err
 		})
 		.then((document) => {
-			res.json({ data: document.winstons })
+			res.json(document.winstons)
 			db.close()
 		})
 	});	

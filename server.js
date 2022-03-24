@@ -9,14 +9,30 @@ Last updated:
 */
 
 const express = require('express')
+const bodyParser = require('body-parser')
+
 require('dotenv').config()
 
+const limit = '50mb'
+
 app = express()
+
+app.use(bodyParser.json({ 
+  limit: process.env.LIMIT || limit
+}))
+
+app.use(bodyParser.urlencoded({
+  limit: process.env.LIMIT || limit,
+  extended: false,
+}))
+
+// app.use(express.json())
+
 // app.use('/mine', require('./api/mine'))
 app.use('/mint', require('./api/mint'))
 // app.use('/get', require('./api/get'))
 app.use('/price', require('./api/price'))
-// app.use('/tx', require('./api/tx'))
+app.use('/tx', require('./api/tx'))
 app.use('/upload', require('./api/upload'))
 app.use('/chunk', require('./api/chunk'))
 app.use('/wallet', require('./api/wallet'))

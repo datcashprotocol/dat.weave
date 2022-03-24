@@ -16,6 +16,17 @@ mongosh
 4. In a separate terminal run `npm run dev`
 
 
+### Setup
+Create `.env` in root with parameters
+
+`touch .env`
+
+Example parameters
+```
+PORT=1984
+LIMIT=50mb
+```
+
 ### Mongo shell commands
 
 Show databases

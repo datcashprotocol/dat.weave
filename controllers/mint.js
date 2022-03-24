@@ -6,9 +6,8 @@ exports.mint = (req, res) => {
     const winstons = url[2]
 
     var MongoClient = mongo.MongoClient;
-    var dbURL = 'mongodb://localhost:27017/';
 
-    MongoClient.connect(dbURL, function(err, db) {
+    MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
         if (err) throw err;
         const arweave = db.db('arweave');
 
@@ -17,7 +16,7 @@ exports.mint = (req, res) => {
             winstons: winstons
         }
         
-        const query = {address: address}
+        const query = { address: address }
 
         arweave.collection('wallets').findOne(query)
         .catch((err) => {
@@ -29,7 +28,7 @@ exports.mint = (req, res) => {
             if(document === undefined) {
                 arweave.collection('wallets').insertOne(record)
                 .then(() => {
-                    console.log(`inserted: ${address}`)
+                    console.log(`inserted: ${ address }`)
                     db.close()
                 })
             }
@@ -38,7 +37,7 @@ exports.mint = (req, res) => {
 
                 arweave.collection('wallets').updateOne(query, { $set: record }, function(err, res) {
                     if(err) throw err
-                    console.log(`updated: ${address}`)
+                    console.log(`updated: ${ address }`)
                     db.close()
                 })
             }

@@ -2,7 +2,7 @@ const mongo = require('mongodb')
 
 exports.wallet = (req, res) => {
 	const url = req.originalUrl.trim().split('/').filter(x => x.length > 0)
-    const address = url[1]
+	const address = url[1]
 
 	var MongoClient = require('mongodb').MongoClient;
 

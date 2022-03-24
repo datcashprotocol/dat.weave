@@ -18,7 +18,7 @@ app.use('/mint', require('./api/mint'))
 // app.use('/get', require('./api/get'))
 app.use('/price', require('./api/price'))
 // app.use('/tx', require('./api/home'))
-// app.use('/upload', require('./api/upload'))
+app.use('/upload', require('./api/upload'))
 app.use('/wallet', require('./api/wallet'))
 
 

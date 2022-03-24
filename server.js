@@ -12,15 +12,15 @@ const express = require('express')
 require('dotenv').config()
 
 app = express()
-app.use('/', require('./api/connect'))
-// app.use('/mine', require('./api/home'))
+// app.use('/mine', require('./api/mine'))
 app.use('/mint', require('./api/mint'))
 // app.use('/get', require('./api/get'))
 app.use('/price', require('./api/price'))
-// app.use('/tx', require('./api/home'))
+// app.use('/tx', require('./api/tx'))
 app.use('/upload', require('./api/upload'))
+app.use('/chunk', require('./api/chunk'))
 app.use('/wallet', require('./api/wallet'))
-
+app.use('/tx_anchor', require('./api/tx_anchor'))
 
 const PORT = process.env.PORT || 1984
 

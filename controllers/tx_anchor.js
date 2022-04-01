@@ -9,7 +9,6 @@ function randomString(length) {
 
 exports.tx_anchor = (req, res) => {
 	console.log('tx_anchor')
-	// console.log(req)
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) {
@@ -20,6 +19,7 @@ exports.tx_anchor = (req, res) => {
 		const datweave = db.db('datweave');
 		const transactions = datweave.collection('transactions');
 
+		// this gets the last transaction
 		transactions.findOne({}, {sort: {_id: -1}, limit: 1 })
 		.catch((err) => {
 			console.log('err1')
@@ -30,9 +30,10 @@ exports.tx_anchor = (req, res) => {
 			if(document == null || document === undefined) {
 				const tx = randomString(64)
 				const txn_0 = {
-					data: tx // last_tx and first transaction
+					data: tx // last_tx is first transaction
 				}
 
+				// add a first transaction
 				transactions.insertOne(txn_0)
 				.catch((err) => {
 					console.log('err2')

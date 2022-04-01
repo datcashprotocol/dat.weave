@@ -13,6 +13,7 @@ const bodyParser = require('body-parser')
 
 require('dotenv').config()
 
+// default in case not set in .env
 const limit = '50mb'
 
 app = express()

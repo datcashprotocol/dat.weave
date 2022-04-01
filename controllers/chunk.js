@@ -1,53 +1,57 @@
 const mongo = require('mongodb')
 
 exports.chunk = (req, res) => {
-	let record = {}
-	const address = ""
-
-	var MongoClient = mongo.MongoClient;
+	const MongoClient = mongo.MongoClient;
 
 	console.log('/chunk')
+
 	const body = req.body
-	const offset = body.offset
+	const record = {
+		data_root: body.data_root,
+		data_size: body.data_size,
+		data_path: body.data_path,
+		offset: body.offset,
+		chunk: body.chunk
+	}
+
 	const chunk = body.chunk
-	const data_size = body.data_size
-	console.log(body)
+	const chunk_truncated = chunk.substring(0, 10)+'...'+chunk.substring(chunk.length - 10)
+	console.log(chunk_truncated, '| offset:', body.offset, ' | len: ', chunk.length)
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) throw err;
 		const datweave = db.db('datweave');
-		const wallets = datweave.collection('wallets')
+		const transactions = datweave.collection('transactions')
 
-		const query = { address: address }
+		const query = { data_root: record.data_root }
 
-		wallets.findOne(query)
+		transactions.findOne(query)
 		.catch((err) => {
 			console.log(err)
 			throw err
 		})
 		.then((document) => {
-			if(document === undefined) {
-				wallets.insertOne(record)
-				.catch((err) => {
-					console.log(err)
-					if(err) throw err
-				})
-				.then((result) => {
-					console.log(result)
-					console.log('1 document inserted');
-					db.close();
-				})
+			if(document == null || document === undefined) {
+				res.json({})
+				db.close()
 			}
 			else {
-				wallets.updateOne(record)
+				record.id = document.id
+				record.data_root = document.data_root
+				record.owner = document.owner
+
+				transactions.updateOne(query, { $set: record })
 				.catch((err) => {
-					console.log(err)
-					if(err) throw err
+					if(err) {
+						console.log(err)
+						throw err
+					}
 				})
 				.then((result) => {
-					console.log(result)
-					console.log(`uploaded to: ${ address }`);
-					db.close();
+					// console.log(result) // TODO: add to log instead of console
+					console.log(`uploaded chunk for txn: ${ record.id }`)
+					res.json({})
+					db.close()
 				})
 			}
 		})

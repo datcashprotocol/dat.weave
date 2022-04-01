@@ -1,6 +1,9 @@
 const mongo = require('mongodb')
 
-exports.wallet = (req, res) => {
+exports.balance = (req, res) => {
+	console.log('/wallet')
+	console.log(req)
+
 	const url = req.originalUrl.trim().split('/').filter(x => x.length > 0)
 	const address = url[1]
 
@@ -27,4 +30,11 @@ exports.wallet = (req, res) => {
 			db.close()
 		})
 	});	
+};
+
+
+exports.last_tx = (req, res) => {
+	console.log('/last_tx')
+
+	
 };

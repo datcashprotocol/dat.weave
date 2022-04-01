@@ -2,6 +2,11 @@ const express = require('express')
 router = express.Router()
 api = require('../controllers/wallet.js')
 
-router.get(/^\/([a-zA-Z]+([0-9]+[a-zA-Z]+)+)\/balance$/i, api.wallet)
+/* 
+/wallet endpoint
+https://docs.arweave.org/developers/server/http-api#wallets
+*/
+router.get('/:param/balance', api.balance)
+router.get('/:param/last_tx', api.last_tx)
 
 module.exports = router

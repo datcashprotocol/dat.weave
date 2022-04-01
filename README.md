@@ -39,5 +39,24 @@ Display all records from collection
 show dbs
 use <dbs name>
 show collections
-db.<collection name>.find()
+db.<collection name>.find({})
 ```
+
+Count documents
+```
+db.transactions.countDocuments()
+```
+
+Delete one document
+e.g.
+```
+db.wallets.deleteOne({_id: ObjectId("623cc2c2c032fde16a31aeb5")})
+```
+
+Delete all documents
+```
+db.transactions.deleteMany({})
+```
+
+### Run dev
+`npm run dev`

@@ -1,13 +1,22 @@
+/*
+Questions:
+How to discern one transaction from another and which wallet it belongs to?
+
+Is chrome-extension://locpffohakilgihanpeckonobepjocmn in req.rawHeaders the same for a single wallet or per transaction?
+*/
+
 const mongo = require('mongodb')
 
-exports.chunk = (req, res) => {
+exports.post_chunk = (req, res) => {
 	const MongoClient = mongo.MongoClient;
 
-	console.log('/chunk')
+	console.log('/post_chunk')
+
+	console.log(req)
 
 	const body = req.body
 	const record = {
-		data_root: body.data_root,
+		data_root: body.data_root, //use to identify chunks part of the same txn
 		data_size: body.data_size,
 		data_path: body.data_path,
 		offset: body.offset,
@@ -15,7 +24,10 @@ exports.chunk = (req, res) => {
 	}
 
 	const chunk = body.chunk
-	const chunk_truncated = chunk.substring(0, 10)+'...'+chunk.substring(chunk.length - 10)
+
+	// make chunk string readable so can compare to mongo record while developing
+	const sub_len = 10
+	const chunk_truncated = chunk.substring(0, sub_len)+'...'+chunk.substring(chunk.length - sub_len)
 	console.log(chunk_truncated, '| offset:', body.offset, ' | len: ', chunk.length)
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
@@ -40,6 +52,11 @@ exports.chunk = (req, res) => {
 				record.data_root = document.data_root
 				record.owner = document.owner
 
+				// TODO: insert chunk by key e.g. chunk: { <offset> : <data> }
+				// rn it's overwriting prev chunks
+
+				console.log(record)
+
 				transactions.updateOne(query, { $set: record })
 				.catch((err) => {
 					if(err) {
@@ -57,3 +74,8 @@ exports.chunk = (req, res) => {
 		})
 	});	
 };
+
+
+exports.get_chunk = (req, res) => {
+	console.log('/get_chunk')
+}

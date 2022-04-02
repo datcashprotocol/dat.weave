@@ -2,7 +2,6 @@ const mongo = require('mongodb')
 
 exports.balance = (req, res) => {
 	console.log('/wallet')
-	console.log(req)
 
 	const url = req.originalUrl.trim().split('/').filter(x => x.length > 0)
 	const address = url[1]

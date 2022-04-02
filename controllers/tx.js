@@ -45,6 +45,8 @@ exports.tx_post = (req, res) => {
 		owner: body.owner
 	}
 
+	console.log(`/tx endpoint:\nid: ${txn.id}\nowner: ${txn.owner}\ndata_root:${txn.data_root}`)
+
 	const MongoClient = mongo.MongoClient;
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {

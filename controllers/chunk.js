@@ -12,23 +12,18 @@ exports.post_chunk = (req, res) => {
 
 	console.log('/post_chunk')
 
-	console.log(req)
-
 	const body = req.body
-	const record = {
+	const chunk = body.chunk
+	const offset = body.offset
+	let record = {
 		data_root: body.data_root, //use to identify chunks part of the same txn
 		data_size: body.data_size,
-		data_path: body.data_path,
-		offset: body.offset,
-		chunk: body.chunk
+		data_path: body.data_path
 	}
-
-	const chunk = body.chunk
 
 	// make chunk string readable so can compare to mongo record while developing
 	const sub_len = 10
 	const chunk_truncated = chunk.substring(0, sub_len)+'...'+chunk.substring(chunk.length - sub_len)
-	console.log(chunk_truncated, '| offset:', body.offset, ' | len: ', chunk.length)
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) throw err;
@@ -48,16 +43,14 @@ exports.post_chunk = (req, res) => {
 				db.close()
 			}
 			else {
-				record.id = document.id
-				record.data_root = document.data_root
-				record.owner = document.owner
 
-				// TODO: insert chunk by key e.g. chunk: { <offset> : <data> }
-				// rn it's overwriting prev chunks
+				if(!('chunk' in document)) {
+					document.chunk = {}
+				}
 
-				console.log(record)
+				document.chunk[offset] = chunk
 
-				transactions.updateOne(query, { $set: record })
+				transactions.updateOne(query, { $set: document })
 				.catch((err) => {
 					if(err) {
 						console.log(err)

@@ -28,7 +28,7 @@ exports.tx_anchor = (req, res) => {
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				const tx = randomString(64)
+				const tx = 'initial transaction for subsequent calls to tx_anchor for last txn'
 				const txn_0 = {
 					data: tx // last_tx is first transaction
 				}

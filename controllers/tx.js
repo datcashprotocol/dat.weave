@@ -64,8 +64,15 @@ exports.tx_get_offset = (req, res) => {
 				}
 			})
 			.then((document) => {
-				res.json(document.chunk) // TODO: I think should return chunk directly?
-				console.log(`got txn: ${txnID}`)
+				let offsets = Object.keys(document.chunk).map(offset => parseInt(offset))
+				const offset = Math.min(...offsets);
+
+				res.json({
+					offset: offset,
+					size: document.chunk[offset].length
+				})
+
+				console.log(`got txn: ${txnID}\t${offset}`)
 				db.close()
 			})
 		});	

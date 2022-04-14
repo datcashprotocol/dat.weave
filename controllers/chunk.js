@@ -71,4 +71,32 @@ exports.post_chunk = (req, res) => {
 
 exports.get_chunk = (req, res) => {
 	console.log('/get_chunk')
+
+	const query = { id: req.query.id }
+	const offset = req.query.offset
+
+	const MongoClient = mongo.MongoClient;
+
+	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
+		if(err) {
+			res.json({status: 400})
+			throw err
+		}
+
+		const datweave = db.db('datweave');
+		const transactions = datweave.collection('transactions')
+
+		transactions.findOne(query)
+		.catch((err) => {
+			console.log(err)
+			throw err
+		})
+		.then((document) => {
+			res.json({ 
+				data: document.chunk[offset]
+			})
+
+			db.close()
+		})
+	})
 }

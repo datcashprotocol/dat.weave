@@ -42,6 +42,16 @@ show collections
 db.<collection name>.find({})
 ```
 
+Find a record and ignore `chunk` property
+```
+db.transactions.find({id: "4Z7FstvUq4JExe-KpvEJbORt3VoVyr5cCTeTBbX0-Lk"}, {chunk:0}).pretty()
+```
+
+Examine a specific chunk
+```
+db.transactions.find({id: "4Z7FstvUq4JExe-KpvEJbORt3VoVyr5cCTeTBbX0-Lk"}, {chunk: "145978"}).pretty()
+```
+
 Count documents
 ```
 db.transactions.countDocuments()

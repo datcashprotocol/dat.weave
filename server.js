@@ -11,6 +11,10 @@ Last updated:
 const express = require('express')
 const bodyParser = require('body-parser')
 
+// TODO: Fix db.getCollectionNames
+// const utils = require('./utils')
+// utils.clear_mongo()
+
 require('dotenv').config()
 
 // default in case not set in .env
@@ -29,9 +33,8 @@ app.use(bodyParser.urlencoded({
 
 // app.use(express.json())
 
-// app.use('/mine', require('./api/mine'))
+app.use('/mine', require('./api/mine'))
 app.use('/mint', require('./api/mint'))
-// app.use('/get', require('./api/get'))
 app.use('/price', require('./api/price'))
 app.use('/tx', require('./api/tx'))
 app.use('/upload', require('./api/upload'))
@@ -41,6 +44,6 @@ app.use('/tx_anchor', require('./api/tx_anchor'))
 
 const PORT = process.env.PORT || 1984
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`port: ${PORT}`)
 });

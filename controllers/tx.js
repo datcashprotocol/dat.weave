@@ -40,14 +40,17 @@ exports.tx_post = (req, res) => {
 exports.tx_get_offset = (req, res) => {
 	// front end calls this 114 times if does not get a valid resp
 	console.log('/tx_get') //gets NFTGallery data
+	// console.log(req)
 
 	// Assumes only one parameter in request
 
 	if(Object.keys(req.params).length === 0) {
+		console.log('get txnID no params')
 		res.json({ status: 200 })
 	}
 	else {
 		const txnID = req.params['0'];
+		console.log(`get txnID: ${txnID}`)
 
 		var MongoClient = require('mongodb').MongoClient;
 
@@ -65,14 +68,11 @@ exports.tx_get_offset = (req, res) => {
 			})
 			.then((document) => {
 				let offsets = Object.keys(document.chunk).map(offset => parseInt(offset))
-				const offset = Math.min(...offsets);
 
 				res.json({
-					offset: offset,
-					size: document.chunk[offset].length
+					offsets: offsets
 				})
 
-				console.log(`got txn: ${txnID}\t${offset}`)
 				db.close()
 			})
 		});	

@@ -39,7 +39,7 @@ exports.tx_post = (req, res) => {
 
 exports.tx_get_offset = (req, res) => {
 	// front end calls this 114 times if does not get a valid resp
-	console.log('/tx_get') //gets NFTGallery data
+	console.log('/tx_get_offset') //gets NFTGallery data
 	// console.log(req)
 
 	// Assumes only one parameter in request
@@ -67,10 +67,18 @@ exports.tx_get_offset = (req, res) => {
 				}
 			})
 			.then((document) => {
+				console.log(document)
 				let offsets = Object.keys(document.chunk).map(offset => parseInt(offset))
+				const chunks = document.chunk
+				const chunkKeys = Object.keys(document.chunk)
+				const size = chunkKeys.reduce((prev, current) => prev + chunks[current].length, 0)
+
+				console.log(offsets)
+				console.log(size)
 
 				res.json({
-					offsets: offsets
+					offsets: offsets,
+					size: size
 				})
 
 				db.close()

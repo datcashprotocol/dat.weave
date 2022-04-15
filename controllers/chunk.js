@@ -72,8 +72,11 @@ exports.post_chunk = (req, res) => {
 exports.get_chunk = (req, res) => {
 	console.log('/get_chunk')
 
-	const query = { id: req.query.id }
-	const offset = req.query.offset
+	let params = req.params['0'].split('/')
+	const query = { id: params[0] }
+	const offset = params[1]
+
+	console.log(req)
 
 	const MongoClient = mongo.MongoClient;
 
@@ -92,6 +95,7 @@ exports.get_chunk = (req, res) => {
 			throw err
 		})
 		.then((document) => {
+			console.log(document.chunk)
 			res.json({ 
 				data: document.chunk[offset]
 			})

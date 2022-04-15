@@ -70,3 +70,14 @@ db.transactions.deleteMany({})
 
 ### Run dev
 `npm run dev`
+
+
+### Example usage
+
+Store data
+```
+```
+
+Retrieve data
+```
+```

@@ -5,7 +5,7 @@ Save transactions to wallet
 const mongo = require('mongodb')
 
 exports.wallet = (req, res) => {
-	console.log('/post_solana')
+	console.log('/wallet/dat')
 	const query = req.query
 	const soladdress = query.soladdress
 	const araddress = query.araddress

@@ -1,6 +1,12 @@
 # datweave
 Minimalist backend simulation for developing on Arweave
 
+Transactions are cached and should be retrieved whenever displaying contents of a wallet.
+
+### TODO
+1. Upload locally without spl creation
+2. Download locally without spl creation
+
 ### Installation
 1. In the root directory: `npm install`
 2. Install MongoDb

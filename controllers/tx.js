@@ -3,9 +3,6 @@ const mongo = require('mongodb')
 exports.tx_post = (req, res) => {
 	console.log('/tx_post')
 	const body = req.body
-
-	console.log(body)
-
 	const txn = {
 		id: body.id,
 		data_root: body.data_root,
@@ -19,7 +16,8 @@ exports.tx_post = (req, res) => {
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) throw err;
 		const datweave = db.db('datweave');
-		const transactions = datweave.collection('transactions')
+		const wallets = datweave.collection('wallets');
+		const transactions = datweave.collection('transactions');
 
 		transactions.insertOne(txn)
 		.catch((err) => {
@@ -49,8 +47,13 @@ exports.tx_get_offset = (req, res) => {
 		res.json({ status: 200 })
 	}
 	else {
-		const txnID = req.params['0'];
-		console.log(`get txnID: ${txnID}`)
+		const txnID = req.params['0'].replace(/\s/g, '');
+
+		if(txnID.length == 0) {
+			console.log('no txnID')
+			res.json({ status: 200 })
+			return
+		}
 
 		var MongoClient = require('mongodb').MongoClient;
 
@@ -67,19 +70,21 @@ exports.tx_get_offset = (req, res) => {
 				}
 			})
 			.then((document) => {
-				console.log(document)
-				let offsets = Object.keys(document.chunk).map(offset => parseInt(offset))
-				const chunks = document.chunk
-				const chunkKeys = Object.keys(document.chunk)
-				const size = chunkKeys.reduce((prev, current) => prev + chunks[current].length, 0)
 
-				console.log(offsets)
-				console.log(size)
+				if(document === null || !document.hasOwnProperty('chunk')) {
+					res.json({ status: 200 })
+				}
+				else {
+					let offsets = Object.keys(document.chunk).map(offset => parseInt(offset))
+					const chunks = document.chunk
+					const chunkKeys = Object.keys(document.chunk)
+					const size = chunkKeys.reduce((prev, current) => prev + chunks[current].length, 0)
 
-				res.json({
-					offsets: offsets,
-					size: size
-				})
+					res.json({
+						offsets: offsets,
+						size: size
+					})
+				}
 
 				db.close()
 			})

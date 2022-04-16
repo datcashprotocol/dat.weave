@@ -25,7 +25,7 @@ exports.wallet = (req, res) => {
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				res.json({ status: 404 })
+				res.status(404)
 			}
 			else {
 				if(!document.hasOwnProperty('transactions')) {
@@ -47,7 +47,7 @@ exports.wallet = (req, res) => {
 					db.close()
 				})
 
-				res.json({ status: 200 })
+				res.status(200)
 			}
 		})
 	});

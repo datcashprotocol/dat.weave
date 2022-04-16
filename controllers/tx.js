@@ -25,7 +25,7 @@ exports.tx_post = (req, res) => {
 			}
 		})
 		.then(() => {
-			res.json({ status: 200 })
+			res.status(200)
 			db.close()
 		})
 	});	
@@ -38,13 +38,13 @@ exports.tx_get_offset = (req, res) => {
 	// Assumes only one parameter in request
 
 	if(Object.keys(req.params).length === 0) {
-		res.json({ status: 200 })
+		res.status(200)
 	}
 	else {
 		const txnID = req.params['txnID'].replace(/\s/g, '');
 
 		if(txnID.length == 0) {
-			res.json({ status: 200 })
+			res.status(200)
 			return
 		}
 
@@ -65,7 +65,7 @@ exports.tx_get_offset = (req, res) => {
 			.then((document) => {
 
 				if(document === null || !document.hasOwnProperty('chunk')) {
-					res.json({ status: 200 })
+					res.status(200)
 				}
 				else {
 					let offsets = Object.keys(document.chunk).map(offset => parseInt(offset))
@@ -88,5 +88,5 @@ exports.tx_get_offset = (req, res) => {
 // TODO: idk what this api does yet
 
 exports.tx_get_status = (req, res) => {
-	res.json({status: 200})
+	res.status(200)
 };

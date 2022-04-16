@@ -20,7 +20,7 @@ exports.tx = (req, res) => {
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				res.json({ status: 404 })
+				res.status(404)
 			}
 			else {
 				res.json({ transactions: document.transactions })

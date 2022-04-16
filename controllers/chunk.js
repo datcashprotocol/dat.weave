@@ -55,9 +55,6 @@ exports.post_chunk = (req, res) => {
 					}
 				})
 				.then((result) => {
-					console.log(result) // TODO: add to log instead of console
-					console.log(`uploaded chunk for txn: ${ record.id }`)
-					console.log(query)
 					res.json({})
 					db.close()
 				})

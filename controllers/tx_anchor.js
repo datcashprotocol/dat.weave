@@ -12,7 +12,6 @@ exports.tx_anchor = (req, res) => {
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) {
-			console.log('err0')
 			throw err
 		}
 
@@ -22,7 +21,6 @@ exports.tx_anchor = (req, res) => {
 		// this gets the last transaction
 		transactions.findOne({}, {sort: {_id: -1}, limit: 1 })
 		.catch((err) => {
-			console.log('err1')
 			console.log(err)
 			throw err
 		})
@@ -36,12 +34,10 @@ exports.tx_anchor = (req, res) => {
 				// add a first transaction
 				transactions.insertOne(txn_0)
 				.catch((err) => {
-					console.log('err2')
 					console.log(err)
 					throw err
 				})
 				.then(() => {
-					console.log(`inserted: ${ tx }`)
 					db.close()
 				})
 
@@ -51,7 +47,6 @@ exports.tx_anchor = (req, res) => {
 			res.json(document)
 		})
 		.catch((err) => {
-			console.log('err3')
 			console.log(err)
 			throw err
 		})

@@ -26,8 +26,6 @@ exports.upload = (req, res) => {
 					if(err) throw err
 				})
 				.then((result) => {
-					console.log(result)
-					console.log('1 document inserted');
 					db.close();
 				})
 			}
@@ -38,8 +36,6 @@ exports.upload = (req, res) => {
 					if(err) throw err
 				})
 				.then((result) => {
-					console.log(result)
-					console.log(`uploaded to: ${ address }`);
 					db.close();
 				})
 			}

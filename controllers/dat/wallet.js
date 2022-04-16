@@ -44,7 +44,6 @@ exports.wallet = (req, res) => {
 					if(err) throw err
 				})
 				.then((result) => {
-					console.log(`updated: ${ araddress }`)
 					db.close()
 				})
 

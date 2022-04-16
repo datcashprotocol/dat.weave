@@ -9,8 +9,6 @@ exports.tx_post = (req, res) => {
 		owner: body.owner
 	}
 
-	console.log(`/tx endpoint:\nid: ${txn.id}\nowner: ${txn.owner}\ndata_root:${txn.data_root}`)
-
 	const MongoClient = mongo.MongoClient;
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
@@ -27,7 +25,6 @@ exports.tx_post = (req, res) => {
 			}
 		})
 		.then(() => {
-			console.log(`inserted txn ${ txn.id }`)
 			res.json({ status: 200 })
 			db.close()
 		})
@@ -37,20 +34,16 @@ exports.tx_post = (req, res) => {
 
 exports.tx_get_offset = (req, res) => {
 	// front end calls this 114 times if does not get a valid resp
-	console.log('/tx_get_offset') //gets NFTGallery data
-	console.log(req.params)
 
 	// Assumes only one parameter in request
 
 	if(Object.keys(req.params).length === 0) {
-		console.log('get txnID no params')
 		res.json({ status: 200 })
 	}
 	else {
 		const txnID = req.params['txnID'].replace(/\s/g, '');
 
 		if(txnID.length == 0) {
-			console.log('no txnID')
 			res.json({ status: 200 })
 			return
 		}

@@ -30,7 +30,6 @@ exports.mint = (req, res) => {
 			if(document == null || document === undefined) {
 				wallets.insertOne(record)
 				.then(() => {
-					console.log(`inserted: ${ address }`)
 					db.close()
 				})
 			}
@@ -43,7 +42,6 @@ exports.mint = (req, res) => {
 					if(err) throw err
 				})
 				.then((result) => {
-					console.log(`updated: ${ address }`)
 					db.close()
 				})
 			}

@@ -3,7 +3,7 @@ const mongo = require('mongodb')
 exports.tx = (req, res) => {
 	console.log('/tx/dat')
 
-	const query = { address: req.params.param } 
+	const query = { address: req.params.txnID } 
 	const MongoClient = mongo.MongoClient;
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {

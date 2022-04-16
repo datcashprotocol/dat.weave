@@ -1,8 +1,5 @@
 /*
-Questions:
-How to discern one transaction from another and which wallet it belongs to?
-
-Is chrome-extension://locpffohakilgihanpeckonobepjocmn in req.rawHeaders the same for a single wallet or per transaction?
+API for data chunks
 */
 
 const mongo = require('mongodb')

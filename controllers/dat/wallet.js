@@ -7,8 +7,8 @@ const mongo = require('mongodb')
 exports.wallet = (req, res) => {
 	console.log('/wallet/dat')
 	const query = req.query
-	const soladdress = query.soladdress
-	const araddress = query.araddress
+	const txnID = query.txnID
+	const araddress = query.address
 
 	const MongoClient = mongo.MongoClient;
 
@@ -32,7 +32,11 @@ exports.wallet = (req, res) => {
 					document.transactions = []
 				}
 
-				document.transactions.push(soladdress)
+				document.transactions.push({
+					data: {
+						uri: txnID
+					}
+				})
 
 				wallets.updateOne(query, { $set: document })
 				.catch((err) => {

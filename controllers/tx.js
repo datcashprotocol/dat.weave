@@ -38,7 +38,7 @@ exports.tx_post = (req, res) => {
 exports.tx_get_offset = (req, res) => {
 	// front end calls this 114 times if does not get a valid resp
 	console.log('/tx_get_offset') //gets NFTGallery data
-	// console.log(req)
+	console.log(req.params)
 
 	// Assumes only one parameter in request
 
@@ -47,7 +47,7 @@ exports.tx_get_offset = (req, res) => {
 		res.json({ status: 200 })
 	}
 	else {
-		const txnID = req.params['0'].replace(/\s/g, '');
+		const txnID = req.params['txnID'].replace(/\s/g, '');
 
 		if(txnID.length == 0) {
 			console.log('no txnID')

@@ -14,7 +14,8 @@ exports.mint = (req, res) => {
 
 		const record = {
 			address: address,
-			winstons: winstons
+			winstons: winstons,
+			transactions: []
 		}
 		
 		const query = { address: address }

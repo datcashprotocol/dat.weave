@@ -44,7 +44,7 @@ exports.tx_anchor = (req, res) => {
 				document = txn_0
 			}
 
-			res.json(document)
+			res.status(200).json(document)
 		})
 		.catch((err) => {
 			console.log(err)

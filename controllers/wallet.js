@@ -20,10 +20,10 @@ exports.balance = (req, res) => {
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				res.json({})
+				res.status(404).json({})
 			}
 			else {
-				res.json(document.winstons)
+				res.status(200).json(document.winstons)
 			}
 
 			db.close()

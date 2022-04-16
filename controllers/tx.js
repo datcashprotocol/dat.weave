@@ -73,7 +73,7 @@ exports.tx_get_offset = (req, res) => {
 					const chunkKeys = Object.keys(document.chunk)
 					const size = chunkKeys.reduce((prev, current) => prev + chunks[current].length, 0)
 
-					res.json({
+					res.status(200).json({
 						offsets: offsets,
 						size: size
 					})

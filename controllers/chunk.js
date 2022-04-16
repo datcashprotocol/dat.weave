@@ -36,7 +36,7 @@ exports.post_chunk = (req, res) => {
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				res.json({})
+				res.status(404).json({})
 				db.close()
 			}
 			else {
@@ -55,7 +55,7 @@ exports.post_chunk = (req, res) => {
 					}
 				})
 				.then((result) => {
-					res.json({})
+					res.status(404).json({})
 					db.close()
 				})
 			}
@@ -88,7 +88,7 @@ exports.get_chunk = (req, res) => {
 			throw err
 		})
 		.then((document) => {
-			res.json({ 
+			res.status(200).json({ 
 				data: document.chunk[offset]
 			})
 

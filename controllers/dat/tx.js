@@ -23,7 +23,7 @@ exports.tx = (req, res) => {
 				res.status(404)
 			}
 			else {
-				res.json({ transactions: document.transactions })
+				res.status(200).json({ transactions: document.transactions })
 			}
 
 			db.close()

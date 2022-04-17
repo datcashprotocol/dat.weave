@@ -10,7 +10,7 @@ exports.wallet = (req, res) => {
 	const txnID = query.txnID
 	const araddress = query.address
 
-	const MongoClient = mongo.MongoClient;
+	const MongoClient = mongo.MongoClient
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if(err) throw err;
@@ -51,4 +51,17 @@ exports.wallet = (req, res) => {
 			}
 		})
 	});
+};
+
+exports.clear = (req, res) => {
+	const MongoClient = mongo.MongoClient
+
+	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
+		const datweave = db.db('datweave')
+		if (err) throw err;
+
+		datweave.dropCollection('wallets', (err, ok) => {
+			res.status(200).end()
+		})
+	})
 };

@@ -1,7 +1,6 @@
 const request = require('supertest')
 const app = require('../server')
 const payload = require('./data/transaction.json')
-const utils = require('../utils')
 
 /*
 The order of tests follows the order in which the Arweave js framework calls endpoints
@@ -15,13 +14,25 @@ The order of tests follows the order in which the Arweave js framework calls end
 8. /mine
 */
 describe('datweave API', () => {
-	beforeAll(async () => {
-		await utils.clear_mongo()
+	beforeAll(() => {
+		request(app)
+		.post('/wallet/clear')
+		.expect(200)
+		
+		request(app)
+		.post('/tx/clear')
+		.expect(200)
 		return
 	});
 
-	afterAll(async () => {
-		await utils.clear_mongo()
+	afterAll(() => {
+		request(app)
+		.post('/wallet/clear')
+		.expect(200)
+		
+		request(app)
+		.post('/tx/clear')
+		.expect(200)
 		return
 	});
 

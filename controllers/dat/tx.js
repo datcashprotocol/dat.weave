@@ -30,3 +30,14 @@ exports.tx = (req, res) => {
 		})
 	});	
 };
+
+exports.clear = (req, res) => {
+	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
+		const datweave = db.db('datweave')
+		if (err) throw err;
+
+		datweave.dropCollection('transactions', (err, ok) => {
+			res.status(200).end()
+		})
+	});
+};

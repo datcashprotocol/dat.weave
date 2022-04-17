@@ -74,6 +74,11 @@ Delete all documents
 db.transactions.deleteMany({})
 ```
 
+Export record to file
+```
+mongoexport --db datweave --collection wallets --out wallets.json
+```
+
 ### Run dev
 `npm run dev`
 

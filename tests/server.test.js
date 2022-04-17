@@ -10,9 +10,21 @@ The order of tests follows the order in which the Arweave js framework calls end
 4. /tx_anchor
 5. /get_price
 6. /uploadChunk
-7. /mine
+7. /tx
+8. /mine
 */
 describe('datweave API', () => {
+	it('POST /wallet -> 400', () => {
+		const address = '0xNonExistentAddress'
+		return request(app)
+			.post(`/price/${address}/balance`)
+			.expect(404)
+	})
+	
+	// it('POST /wallet -> 200', () => {
+		
+	// })
+
 	it('GET /price -> 200', () => {
 		const byte = 100
 		return request(app)
@@ -61,4 +73,6 @@ describe('datweave API', () => {
 			.get('/mine')
 			.expect(200)
 	});
+
+
 });

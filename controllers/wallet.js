@@ -16,6 +16,7 @@ exports.balance = (req, res) => {
 		wallets.findOne({ address: address })
 		.catch((err) => {
 			console.log(err)
+			res.status(500).end()
 			if (err) throw err
 		})
 		.then((document) => {

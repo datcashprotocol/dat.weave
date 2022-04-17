@@ -44,6 +44,11 @@ app.use('/tx_anchor', require('./api/tx_anchor'))
 
 const PORT = process.env.PORT || 1984
 
-const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`port: ${PORT}`)
-});
+if(process.env.MODE == 'dev') {
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`port: ${PORT}`)
+  });
+}
+else if(process.env.MODE == 'test') {
+  module.exports = app;
+}

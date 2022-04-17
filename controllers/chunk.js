@@ -12,11 +12,7 @@ exports.post_chunk = (req, res) => {
 	const body = req.body
 	const chunk = body.chunk
 	const offset = body.offset
-	let record = {
-		data_root: body.data_root, //use to identify chunks part of the same txn
-		data_size: body.data_size,
-		data_path: body.data_path
-	}
+
 
 	// make chunk string readable so can compare to mongo record while developing
 	const sub_len = 10
@@ -27,7 +23,7 @@ exports.post_chunk = (req, res) => {
 		const datweave = db.db('datweave');
 		const transactions = datweave.collection('transactions')
 
-		const query = { data_root: record.data_root }
+		const query = { data_root: body.data_root }
 
 		transactions.findOne(query)
 		.catch((err) => {

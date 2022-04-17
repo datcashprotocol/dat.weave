@@ -1,16 +1,46 @@
 const request = require('supertest')
 const app = require('../server')
+const payload = require('./data/transaction.json')
 
-
+/*
+The order of tests follows the order in which the Arweave js framework calls endpoints
+1. /wallet
+2. /mint
+3. /price
+4. /tx_anchor
+5. /get_price
+6. /uploadChunk
+7. /mine
+*/
 describe('datweave API', () => {
+
 	it('GET /mine --> 200 [not implemented]', () => {
 		return request(app)
 			.get('/mine')
 			.expect(200)
 	});
 
-	it('POSWT /chunk --> 200', () => {
-		
+	// Nothing in db yet, so should expect 404
+	it('POST /chunk --> 200 #chunk 1', () => {
+		return request(app)
+			.post('/chunk')
+			.send({
+				data_root: 'data_root',
+				chunk: 'chunk1',
+				offset: 1
+			})
+			.expect(404)
+	});
+
+	it('POST /chunk --> 200 #chunk 2', () => {
+		return request(app)
+			.post('/chunk')
+			.send({
+				data_root: 'data_root',
+				chunk: 'chunk2',
+				offset: 2
+			})
+			.expect(404)
 	});
 
 	it('GET /chunk --> 404', () => {

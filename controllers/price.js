@@ -6,7 +6,8 @@ exports.uploadEstimate = (req, res) => {
 	
 	axios.get(`https://arweave.net/price/${bytes}`)
 	.catch((err) => {
-		res.status(200).json({ data: 1 }) // if cannont reach, send back resp anyways. e.g. dev'ing locally.
+		// if cannont reach, send back resp anyways. e.g. dev'ing locally.
+		res.status(200).json({ data: 1 })
 	})
 	.then((price) => {
 		if(price.hasOwnProperty('data')) {

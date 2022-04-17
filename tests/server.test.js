@@ -13,11 +13,14 @@ The order of tests follows the order in which the Arweave js framework calls end
 7. /mine
 */
 describe('datweave API', () => {
-
-	it('GET /mine --> 200 [not implemented]', () => {
+	it('GET /price -> 200', () => {
+		const byte = 100
 		return request(app)
-			.get('/mine')
+			.get(`/price/${byte}`)
 			.expect(200)
+			.then((resp) => {
+				expect(resp.body).not.toBeNaN()
+			})
 	});
 
 	// Nothing in db yet, so should expect 404
@@ -51,5 +54,11 @@ describe('datweave API', () => {
 				offset: '291957'
 			})
 			.expect(404)
+	});
+
+	it('GET /mine --> 200 [not implemented]', () => {
+		return request(app)
+			.get('/mine')
+			.expect(200)
 	});
 });

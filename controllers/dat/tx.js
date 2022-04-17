@@ -20,7 +20,7 @@ exports.tx = (req, res) => {
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				res.status(404)
+				res.status(404).json({})
 			}
 			else {
 				res.status(200).json({ transactions: document.transactions })

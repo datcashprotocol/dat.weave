@@ -75,7 +75,7 @@ exports.get_chunk = (req, res) => {
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if(err) {
-			res.status(400)
+			res.status(400).json({})
 			throw err
 		}
 

@@ -20,7 +20,7 @@ exports.balance = (req, res) => {
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				res.status(404).json({})
+				res.status(404).end()
 			}
 			else {
 				res.status(200).json(document.winstons)

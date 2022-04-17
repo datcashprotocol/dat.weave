@@ -1,5 +1,5 @@
 const mongo = require('mongodb')
 
 exports.mine = (req, res) => {
-	res.status(200).json({})
+	res.status(200).end()
 };

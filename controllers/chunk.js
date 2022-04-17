@@ -36,7 +36,7 @@ exports.post_chunk = (req, res) => {
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				res.status(404).json({})
+				res.status(404).end()
 				db.close()
 			}
 			else {
@@ -55,7 +55,7 @@ exports.post_chunk = (req, res) => {
 					}
 				})
 				.then((result) => {
-					res.status(404).json({})
+					res.status(404).end()
 					db.close()
 				})
 			}
@@ -75,7 +75,7 @@ exports.get_chunk = (req, res) => {
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if(err) {
-			res.status(400).json({})
+			res.status(400).end()
 			throw err
 		}
 

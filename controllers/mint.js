@@ -8,7 +8,11 @@ exports.mint = (req, res) => {
 	var MongoClient = mongo.MongoClient;
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
-		if (err) throw err;
+		if (err) {
+			res.status(500).end()
+			throw err;
+		}
+
 		const datweave = db.db('datweave');
 		const wallets = datweave.collection('wallets')
 
@@ -23,6 +27,7 @@ exports.mint = (req, res) => {
 		wallets.findOne(query)
 		.catch((err) => {
 			console.log(err)
+			res.status(500).end()
 			throw err
 		})
 		.then((document) => {
@@ -30,6 +35,7 @@ exports.mint = (req, res) => {
 			if(document == null || document === undefined) {
 				wallets.insertOne(record)
 				.then(() => {
+					res.status(200).end()
 					db.close()
 				})
 			}
@@ -39,15 +45,18 @@ exports.mint = (req, res) => {
 				wallets.updateOne(query, { $set: record })
 				.catch((err) => {
 					console.log(err)
+					res.status(500).end()
 					if(err) throw err
 				})
 				.then((result) => {
+					res.status(200).end()
 					db.close()
 				})
 			}
 		})
 		.catch((err) => {
 			console.log(err)
+			res.status(500).end()
 			throw err
 		})
 	}); 

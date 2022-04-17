@@ -31,7 +31,11 @@ Example parameters
 ```
 PORT=1984
 LIMIT=50mb
+MODE=test
 ```
+
+`MODE=dev` is for developing datweave
+`MODE=test` is for testing datweave
 
 ### Mongo shell commands
 

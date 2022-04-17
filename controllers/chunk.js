@@ -31,12 +31,12 @@ exports.post_chunk = (req, res) => {
 
 		transactions.findOne(query)
 		.catch((err) => {
-			console.log(err)
+			console.log(err) // TEST
 			throw err
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				res.status(404).end()
+				res.status(404).end() // TEST
 				db.close()
 			}
 			else {
@@ -50,12 +50,12 @@ exports.post_chunk = (req, res) => {
 				transactions.updateOne(query, { $set: document })
 				.catch((err) => {
 					if(err) {
-						console.log(err)
+						console.log(err) // TEST
 						throw err
 					}
 				})
 				.then((result) => {
-					res.status(404).end()
+					res.status(200).end() // TEST
 					db.close()
 				})
 			}
@@ -85,12 +85,18 @@ exports.get_chunk = (req, res) => {
 		transactions.findOne(query)
 		.catch((err) => {
 			console.log(err)
+			res.status(400).end()
 			throw err
 		})
 		.then((document) => {
-			res.status(200).json({ 
-				data: document.chunk[offset]
-			})
+			if(document == null || document === undefined) {
+				res.status(404).end()
+			}
+			else {
+				res.status(200).json({ 
+					data: document.chunk[offset]
+				})
+			}
 
 			db.close()
 		})

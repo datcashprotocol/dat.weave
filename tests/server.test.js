@@ -1,6 +1,7 @@
 const request = require('supertest')
 const app = require('../server')
 const payload = require('./data/transaction.json')
+const utils = require('../utils')
 
 /*
 The order of tests follows the order in which the Arweave js framework calls endpoints
@@ -14,11 +15,42 @@ The order of tests follows the order in which the Arweave js framework calls end
 8. /mine
 */
 describe('datweave API', () => {
+	beforeAll(async () => {
+		await utils.clear_mongo()
+		return
+	});
+
+	afterAll(async () => {
+		await utils.clear_mongo()
+		return
+	});
+
 	it('POST /wallet -> 400', () => {
 		const address = '0xNonExistentAddress'
+
 		return request(app)
 			.post(`/price/${address}/balance`)
 			.expect(404)
+	})
+
+	it('GET /mint -> 200', () => {
+		const address = '0xNonExistentAddress'
+		const winstons = 123
+
+		return request(app)
+			.get(`/mint/${address}/${winstons}`)
+			.expect(200)
+	})
+
+	it('GET /wallet -> 10000 winstons', () => {
+		const address = '0xNonExistentAddress'
+
+		return request(app)
+			.get(`/wallet/${address}/balance`)
+			.expect(200)
+			.then((resp) => {
+				expect(resp.body).toEqual('123')
+			})
 	})
 	
 	// it('POST /wallet -> 200', () => {

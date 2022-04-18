@@ -1,17 +1,12 @@
 const { MongoClient } = require('mongodb')
 
-function randomString(length) {
-    var result = ''
-    const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)]
-    return result
-}
 
 exports.tx_anchor = (req, res) => {
 	console.log('tx_anchor')
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) {
+			res.status(500).end()
 			throw err
 		}
 
@@ -22,6 +17,7 @@ exports.tx_anchor = (req, res) => {
 		transactions.findOne({}, {sort: {_id: -1}, limit: 1 })
 		.catch((err) => {
 			console.log(err)
+			res.status(500).end()
 			throw err
 		})
 		.then((document) => {
@@ -45,10 +41,6 @@ exports.tx_anchor = (req, res) => {
 			}
 
 			res.status(200).json(document)
-		})
-		.catch((err) => {
-			console.log(err)
-			throw err
-		})
+		});
 	}); 
 };

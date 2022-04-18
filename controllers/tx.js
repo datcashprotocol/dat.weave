@@ -1,5 +1,6 @@
 const mongo = require('mongodb')
 
+// TODO: Do I need this? not called in api/tx.js
 exports.tx_post = (req, res) => {
 	console.log('/tx_post')
 	const body = req.body
@@ -12,7 +13,11 @@ exports.tx_post = (req, res) => {
 	const MongoClient = mongo.MongoClient;
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
-		if (err) throw err;
+		if (err) {
+			res.status(500).end()
+			throw err;
+		}
+
 		const datweave = db.db('datweave');
 		const wallets = datweave.collection('wallets');
 		const transactions = datweave.collection('transactions');
@@ -21,6 +26,7 @@ exports.tx_post = (req, res) => {
 		.catch((err) => {
 			if(err) {
 				console.log(err)
+				res.status(500).end()
 				throw err
 			}
 		})
@@ -33,18 +39,14 @@ exports.tx_post = (req, res) => {
 
 
 exports.tx_get_offset = (req, res) => {
-	// front end calls this 114 times if does not get a valid resp
-
-	// Assumes only one parameter in request
-
 	if(Object.keys(req.params).length === 0) {
-		res.status(200).end()
+		res.status(404).end()
 	}
 	else {
 		const txnID = req.params['txnID'].replace(/\s/g, '');
 
 		if(txnID.length == 0) {
-			res.status(200).end()
+			res.status(404).end()
 			return
 		}
 
@@ -65,7 +67,7 @@ exports.tx_get_offset = (req, res) => {
 			.then((document) => {
 
 				if(document === null || !document.hasOwnProperty('chunk')) {
-					res.status(200).end()
+					res.status(404).end()
 				}
 				else {
 					let offsets = Object.keys(document.chunk).map(offset => parseInt(offset))

@@ -26,7 +26,7 @@ exports.upload = (req, res) => {
 					if(err) throw err
 				})
 				.then((result) => {
-					db.close();
+					res.status(200).end()
 				})
 			}
 			else {
@@ -36,9 +36,10 @@ exports.upload = (req, res) => {
 					if(err) throw err
 				})
 				.then((result) => {
-					db.close();
+					res.status(200).end()
 				})
 			}
+			db.close()
 		})
 	});	
 };

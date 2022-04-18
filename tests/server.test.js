@@ -78,6 +78,12 @@ describe('datweave API', () => {
 			})
 	});
 
+	it('GET /tx_anchor -> 200', () => {
+		return request(app)
+			.get(`/tx_anchor`)
+			.expect(200)
+	})
+
 	// Nothing in db yet, so should expect 404
 	it('POST /chunk --> 200 #chunk 1', () => {
 		return request(app)

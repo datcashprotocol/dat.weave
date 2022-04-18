@@ -62,9 +62,11 @@ describe('datweave API', () => {
 			})
 	})
 	
-	// it('POST /wallet -> 200', () => {
-		
-	// })
+	it('GET /wallet/:param/last_tx -> 200', () => {
+		return request(app)
+			.get(`/wallet/${address}/last_tx`)
+			.expect(200)
+	})
 
 	it('GET /price -> 200', () => {
 		const byte = 100

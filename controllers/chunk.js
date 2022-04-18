@@ -27,12 +27,13 @@ exports.post_chunk = (req, res) => {
 
 		transactions.findOne(query)
 		.catch((err) => {
-			console.log(err) // TEST
+			console.log(err)
 			throw err
 		})
 		.then((document) => {
 			if(document == null || document === undefined) {
-				res.status(404).end() // TEST
+				res.status(404).end()
+				db.close()
 			}
 			else {
 
@@ -45,17 +46,16 @@ exports.post_chunk = (req, res) => {
 				transactions.updateOne(query, { $set: document })
 				.catch((err) => {
 					if(err) {
-						console.log(err) // TEST
+						console.log(err)
 						res.status(500).end()
 						throw err
 					}
 				})
 				.then((result) => {
-					res.status(200).end() // TEST
+					res.status(200).end()
+					db.close()
 				})
 			}
-
-			db.close()
 		})
 	});	
 };
@@ -74,6 +74,7 @@ exports.get_chunk = (req, res) => {
 		if(err) {
 			res.status(500).end()
 			throw err
+			db.close()
 		}
 
 		const datweave = db.db('datweave');
@@ -88,14 +89,14 @@ exports.get_chunk = (req, res) => {
 		.then((document) => {
 			if(document == null || document === undefined) {
 				res.status(404).end()
+				db.close()
 			}
 			else {
 				res.status(200).json({ 
 					data: document.chunk[offset]
 				})
+				db.close()
 			}
 		})
-
-		db.close()
 	})
 }

@@ -3,6 +3,8 @@ const app = require('../server')
 const payload = require('./data/transaction.json')
 const utils = require('../utils')
 
+const address = utils.randomString(10)
+
 /*
 The order of tests follows the order in which the Arweave js framework calls endpoints
 1. /wallet
@@ -38,15 +40,12 @@ describe('datweave API', () => {
 	});
 
 	it('GET /wallet -> 404', () => {
-		const address = utils.randomString(10)
-
 		return request(app)
-			.get(`/wallet/${address}/balance`)
+			.get(`/wallet/${utils.randomString(10)}/balance`)
 			.expect(404)
 	})
 
 	it('GET /mint -> 200', () => {
-		const address = '0xNonExistentAddress'
 		const winstons = 123
 
 		return request(app)
@@ -55,8 +54,6 @@ describe('datweave API', () => {
 	})
 
 	it('GET /wallet -> 10000 winstons', () => {
-		const address = '0xNonExistentAddress'
-
 		return request(app)
 			.get(`/wallet/${address}/balance`)
 			.expect(200)

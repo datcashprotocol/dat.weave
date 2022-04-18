@@ -33,8 +33,9 @@ exports.balance = (req, res) => {
 };
 
 
+// TODO
 exports.last_tx = (req, res) => {
 	console.log('/last_tx')
 
-	
+	res.status(200).end()
 };

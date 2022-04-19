@@ -1,11 +1,13 @@
 /*
-Save transactions to wallet
+Save transactions to wallet. 
+
+This should only be called after files are uploaded via /upload and /chunk.
 */
 
 const mongo = require('mongodb')
 
 exports.wallet = (req, res) => {
-	console.log('/wallet/dat')
+	console.log('POST /wallet/dat')
 	const query = req.query
 	const txnID = query.txnID
 	const araddress = query.address
@@ -54,6 +56,8 @@ exports.wallet = (req, res) => {
 };
 
 exports.clear = (req, res) => {
+	console.log('POST /wallet/clear')
+
 	const MongoClient = mongo.MongoClient
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {

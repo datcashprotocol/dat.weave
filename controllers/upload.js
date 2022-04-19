@@ -1,6 +1,8 @@
 const mongo = require('mongodb')
 
 exports.upload = (req, res) => {
+	console.log('POST /upload')
+
 	let record = {}
 	const address = ""
 

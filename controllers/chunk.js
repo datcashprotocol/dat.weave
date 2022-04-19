@@ -4,11 +4,14 @@ API for data chunks
 
 const mongo = require('mongodb')
 
+
+// https://github.com/ArweaveTeam/arweave-js/blob/7572c93a50da305876e0734450fa3979e172ddfa/src/common/lib/transaction-uploader.ts#L151
 exports.post_chunk = (req, res) => {
+	console.log('POST /chunk')
+	
 	const MongoClient = mongo.MongoClient;
 
-	console.log('/post_chunk')
-
+	// https://github.com/ArweaveTeam/arweave-js/blob/7572c93a50da305876e0734450fa3979e172ddfa/src/common/lib/transaction.ts#L198
 	const body = req.body
 	const chunk = body.chunk
 	const offset = body.offset
@@ -62,7 +65,7 @@ exports.post_chunk = (req, res) => {
 
 
 exports.get_chunk = (req, res) => {
-	console.log('/get_chunk')
+	console.log('GET /chunk')
 
 	let params = req.params['0'].split('/')
 	const query = { id: params[0] }

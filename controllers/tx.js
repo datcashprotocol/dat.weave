@@ -2,7 +2,8 @@ const mongo = require('mongodb')
 
 // TODO: Do I need this? not called in api/tx.js
 exports.tx_post = (req, res) => {
-	console.log('/tx_post')
+	console.log('POST /tx')
+
 	const body = req.body
 	const txn = {
 		id: body.id,
@@ -37,8 +38,12 @@ exports.tx_post = (req, res) => {
 	});	
 };
 
+/*
 
+*/
 exports.tx_get_offset = (req, res) => {
+	console.log('GET /:txnID/offset')
+
 	if(Object.keys(req.params).length === 0) {
 		res.status(404).end()
 	}
@@ -70,10 +75,10 @@ exports.tx_get_offset = (req, res) => {
 					res.status(404).end()
 				}
 				else {
-					let offsets = Object.keys(document.chunk).map(offset => parseInt(offset))
 					const chunks = document.chunk
-					const chunkKeys = Object.keys(document.chunk)
+					const chunkKeys = Object.keys(chunks)
 					const size = chunkKeys.reduce((prev, current) => prev + chunks[current].length, 0)
+					const offsets = chunkKeys.map(offset => parseInt(offset))
 
 					res.status(200).json({
 						offsets: offsets,
@@ -88,7 +93,8 @@ exports.tx_get_offset = (req, res) => {
 };
 
 // TODO: idk what this api does yet
-
 exports.tx_get_status = (req, res) => {
+	console.log('GET /:txnID/status')
+
 	res.status(200).end()
 };

@@ -1,8 +1,8 @@
 const axios = require('axios');
 
 exports.uploadEstimate = (req, res) => {
-	console.log('/price')
-	const bytes = req.originalUrl.split('/').at(-1)
+	console.log('GET /price/:bytes')
+	const bytes = req.originalUrl.split('/').at(-1) // TODO: make into a :bytes param in api/price.js
 	
 	axios.get(`https://arweave.net/price/${bytes}`)
 	.catch((err) => {

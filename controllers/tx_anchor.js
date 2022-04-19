@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb')
 
 
 exports.tx_anchor = (req, res) => {
-	console.log('tx_anchor')
+	console.log('GET /tx_anchor')
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if (err) {

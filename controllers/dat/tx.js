@@ -1,7 +1,12 @@
+/*
+
+*/
+
 const mongo = require('mongodb')
 
+// Get all transactions from a given transaction
 exports.tx = (req, res) => {
-	console.log('/tx/dat')
+	console.log('GET /dat/:txnID')
 
 	const query = { address: req.params.txnID } 
 	const MongoClient = mongo.MongoClient;
@@ -32,6 +37,8 @@ exports.tx = (req, res) => {
 };
 
 exports.clear = (req, res) => {
+	console.log('POST /tx/clear')
+	
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		const datweave = db.db('datweave')
 		if (err) throw err;

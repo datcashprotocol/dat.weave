@@ -1,6 +1,8 @@
 const mongo = require('mongodb')
 
 exports.mint = (req, res) => {
+	console.log('GET /mint')
+	
 	const url = req.originalUrl.trim().split('/').filter(x => x.length > 0)
 	const address = url[1]
 	const winstons = url[2]

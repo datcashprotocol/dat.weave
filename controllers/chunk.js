@@ -16,6 +16,7 @@ exports.post_chunk = (req, res) => {
 	const chunk = body.chunk
 	const offset = body.offset
 
+	console.log(chunk)
 
 	// make chunk string readable so can compare to mongo record while developing
 	const sub_len = 10

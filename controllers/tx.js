@@ -5,10 +5,13 @@ exports.tx_post = (req, res) => {
 	console.log('POST /tx')
 
 	const body = req.body
+	const data = body.data
+
 	const txn = {
 		id: body.id,
 		data_root: body.data_root,
-		owner: body.owner
+		owner: body.owner,
+		chunk: (data != null && data !== undefined) ? { "0": data } : {}
 	}
 
 	const MongoClient = mongo.MongoClient;
@@ -49,6 +52,7 @@ exports.tx_get_offset = (req, res) => {
 	}
 	else {
 		const txnID = req.params['txnID'].replace(/\s/g, '');
+		console.log(txnID)
 
 		if(txnID.length == 0) {
 			res.status(404).end()
@@ -70,6 +74,8 @@ exports.tx_get_offset = (req, res) => {
 				}
 			})
 			.then((document) => {
+
+				console.log(document)
 
 				if(document === null || !document.hasOwnProperty('chunk')) {
 					res.status(404).end()

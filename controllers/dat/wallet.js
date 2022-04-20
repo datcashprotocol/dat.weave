@@ -11,9 +11,6 @@ exports.wallet = (req, res) => {
 	const query = req.query
 	const txnID = query.txnID
 	const araddress = query.address
-
-	console.log(`address: ${araddress}`)
-
 	const MongoClient = mongo.MongoClient
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
@@ -34,9 +31,7 @@ exports.wallet = (req, res) => {
 				console.log(`could not find ${araddress}`)
 			}
 			else {
-				console.log(document)
 				if(!document.hasOwnProperty('transactions')) {
-					console.log(`${araddress} is missing transactions`)
 					document.transactions = []
 				}
 

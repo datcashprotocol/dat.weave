@@ -52,7 +52,6 @@ exports.tx_get_offset = (req, res) => {
 	}
 	else {
 		const txnID = req.params['txnID'].replace(/\s/g, '');
-		console.log(txnID)
 
 		if(txnID.length == 0) {
 			res.status(404).end()
@@ -74,8 +73,6 @@ exports.tx_get_offset = (req, res) => {
 				}
 			})
 			.then((document) => {
-
-				console.log(document)
 
 				if(document === null || !document.hasOwnProperty('chunk')) {
 					res.status(404).end()

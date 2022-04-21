@@ -38,6 +38,8 @@ exports.tx = (req, res) => {
 
 exports.clear = (req, res) => {
 	console.log('POST /tx/clear')
+
+	const MongoClient = mongo.MongoClient;
 	
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		const datweave = db.db('datweave')

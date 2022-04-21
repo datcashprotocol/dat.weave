@@ -87,16 +87,6 @@ mongoexport --db datweave --collection wallets --out wallets.json
 `npm run dev`
 
 
-### Example usage
-
-Store data
-```
-```
-
-Retrieve data
-```
-```
-
 ### How this repo is structured
 
  - /dat contains endpoints specific to datweave. Needed to have a way to relate wallets to their transactions without relying on retrieving metadata from Solana so that datweave can be used independently offline.

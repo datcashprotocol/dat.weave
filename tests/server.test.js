@@ -130,14 +130,6 @@ describe('datweave API', () => {
 			.expect(200)
 	});
 
-	// TODO: Test multiple chunks that succeeed
-	// it('POST /tx -> 200', () => {
-	// 	return request(app)
-	// });
-
-	
-	// TODO: Multiple mints in wallet transactions
-
 	// Should be able to retrieve offset 2 later
 	it('POST /chunk --> 200 #chunk 2', () => {
 		return request(app)
@@ -214,6 +206,4 @@ describe('datweave API', () => {
 			.get('/mine')
 			.expect(200)
 	});
-
-
 });

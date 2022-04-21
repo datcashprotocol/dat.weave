@@ -3,10 +3,6 @@ Minimalist backend simulation for developing on Arweave
 
 Transactions are cached and should be retrieved whenever displaying contents of a wallet.
 
-### TODO
-1. Upload locally without spl creation
-2. Download locally without spl creation
-
 ### Installation
 1. In the root directory: `npm install`
 2. Install MongoDb
@@ -36,6 +32,17 @@ MODE=test
 
 `MODE=dev` is for developing datweave
 `MODE=test` is for testing datweave
+
+### Run dev
+`npm run dev` with `MODE=dev` will listen to port `1984` and with `MODE=test` will run via Jest.
+
+### Run Jest unit tests
+Open a separate terminal and enter: `npm run test`.
+This will watch for changes and immediately run tests.
+
+### How this repo is structured
+
+ - /dat contains endpoints specific to datweave. Needed to have a way to relate wallets to their transactions without relying on retrieving metadata from Solana so that datweave can be used independently offline.
 
 ### Mongo shell commands
 
@@ -82,11 +89,3 @@ Export record to file
 ```
 mongoexport --db datweave --collection wallets --out wallets.json
 ```
-
-### Run dev
-`npm run dev`
-
-
-### How this repo is structured
-
- - /dat contains endpoints specific to datweave. Needed to have a way to relate wallets to their transactions without relying on retrieving metadata from Solana so that datweave can be used independently offline.

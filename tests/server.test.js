@@ -35,26 +35,16 @@ GET /chunk
 GET /:txnID/status
 */
 describe('datweave API', () => {
-	beforeAll(() => {
-		request(app)
-		.post('/wallet/clear')
-		.expect(200)
-		
-		request(app)
-		.post('/tx/clear')
-		.expect(200)
-		return
+	it('POST /wallet/clear -> 200', () => {
+		return request(app)
+			.post('/wallet/clear')
+			.expect(200)
 	});
-
-	afterAll(() => {
-		request(app)
-		.post('/wallet/clear')
-		.expect(200)
-		
-		request(app)
-		.post('/tx/clear')
-		.expect(200)
-		return
+	
+	it('POST /tx/clear -> 200', () => {
+		return request(app)
+			.post('/tx/clear')
+			.expect(200)
 	});
 
 	// Should fail to get a wallet balance until wallet is created 
@@ -65,7 +55,7 @@ describe('datweave API', () => {
 			.expect(404)
 	})
 
-	// Create wallet and for updating winstons
+	// // Create wallet and for updating winstons
 	it('GET /mint -> 200', () => {
 		const winstons = 123
 
@@ -97,15 +87,15 @@ describe('datweave API', () => {
 	});
 	
 	// Get the last transaction, if first txn, then insert before returning
-	it('GET /wallet/:param/last_tx -> 200', () => {
+	it('GET /tx_anchor -> 200', () => {
 		return request(app)
-			.get(`/wallet/${address}/last_tx`)
+			.get(`/tx_anchor`)
 			.expect(200)
 	})
 
 	// Call /price again to simulate entire process. Should pass.
 	it('GET /price -> 200', () => {
-		const byte = 200
+		const byte = 100
 		return request(app)
 			.get(`/price/${byte}`)
 			.expect(200)
@@ -113,17 +103,6 @@ describe('datweave API', () => {
 				expect(resp.body).not.toBeNaN()
 			})
 	});
-
-	it('GET /tx_anchor -> 200', () => {
-		return request(app)
-			.get(`/tx_anchor`)
-			.expect(200)
-	})
-
-	// TODO: Test for one chunk of max size
-	// TODO: Test multiple chunks that succeeed
-	// TODO: Multiple mints in wallet transactions
-
 
 	// Nothing in db yet, so should expect 404
 	it('POST /chunk --> 404 #chunk 1', () => {
@@ -137,6 +116,28 @@ describe('datweave API', () => {
 			.expect(404)
 	});
 
+	// TODO: Test for one chunk of max size
+	it('POST /tx -> 200', () => {
+		return request(app)
+			.post('/tx')
+			.send({
+				id: 'id',
+				data_root: 'data_root',
+				owner: 'owner',
+				data: 'data'
+			})
+			.expect(200)
+	});
+
+	// TODO: Test multiple chunks that succeeed
+	// it('POST /tx -> 200', () => {
+	// 	return request(app)
+	// });
+
+	
+	// TODO: Multiple mints in wallet transactions
+
+
 	it('POST /chunk --> 200 #chunk 2', () => {
 		return request(app)
 			.post('/chunk')
@@ -145,7 +146,7 @@ describe('datweave API', () => {
 				chunk: 'chunk2',
 				offset: 2
 			})
-			.expect(404)
+			.expect(200)
 	});
 
 	it('GET /chunk --> 404', () => {

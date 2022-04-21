@@ -1,10 +1,9 @@
 const mongo = require('mongodb')
 
 exports.balance = (req, res) => {
-	console.log('GET /wallet/:param/balance')
+	console.log('GET /wallet/:address/balance')
 
-	const url = req.originalUrl.trim().split('/').filter(x => x.length > 0)
-	const address = url[1]
+	const address = req.params['address']
 
 	var MongoClient = require('mongodb').MongoClient;
 
@@ -35,7 +34,9 @@ exports.balance = (req, res) => {
 
 // TODO
 exports.last_tx = (req, res) => {
-	console.log('GET /wallet/:param/last_tx')
+	console.log('GET /wallet/:address/last_tx')
+
+	const address = req.params['address']
 
 	res.status(200).end()
 };

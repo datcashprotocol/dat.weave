@@ -64,11 +64,10 @@ exports.post_chunk = (req, res) => {
 
 
 exports.get_chunk = (req, res) => {
-	console.log('GET /chunk')
+	console.log('GET /chunk/:txnID')
 
-	let params = req.params['0'].split('/')
-	const query = { id: params[0] }
-	const offset = params[1]
+	const query = { id: req.params['txnID'] }
+	const offset = req.params['offset']
 
 	const MongoClient = mongo.MongoClient;
 

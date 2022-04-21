@@ -183,7 +183,15 @@ describe('datweave API', () => {
 		return request(app)
 			.get(`/tx/${txnID}/offset`)
 			.expect(200)
-	})
+	});
+
+	it('GET /chunk -> 200', () => {
+		const txnID = 'id'
+		const offset = '0'
+		return request(app)
+			.get(`/chunk/${txnID}/${offset}`)
+			.expect(200)
+	});
 
 	it('GET /mine --> 200 [not implemented]', () => {
 		return request(app)

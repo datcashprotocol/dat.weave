@@ -166,6 +166,12 @@ describe('datweave API', () => {
 			.expect(200)
 	});
 
+	it('POST /wallet/dat -> ', () => {
+		return request(app)
+			.post(`/wallet/dat?txnID=id&address=${address}`)
+			.expect(200)
+	})
+
 	it('GET /mine --> 200 [not implemented]', () => {
 		return request(app)
 			.get('/mine')

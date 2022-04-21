@@ -104,6 +104,7 @@ describe('datweave API', () => {
 			})
 	});
 
+	// Should NOT be able to retrieve offset 1 later
 	// Nothing in db yet, so should expect 404
 	it('POST /chunk --> 404 #chunk 1', () => {
 		return request(app)
@@ -137,7 +138,7 @@ describe('datweave API', () => {
 	
 	// TODO: Multiple mints in wallet transactions
 
-
+	// Should be able to retrieve offset 2 later
 	it('POST /chunk --> 200 #chunk 2', () => {
 		return request(app)
 			.post('/chunk')
@@ -190,6 +191,21 @@ describe('datweave API', () => {
 		const offset = '0'
 		return request(app)
 			.get(`/chunk/${txnID}/${offset}`)
+			.expect(200)
+	});
+
+	it('GET /chunk -> 200', () => {
+		const txnID = 'id'
+		const offset = '2'
+		return request(app)
+			.get(`/chunk/${txnID}/${offset}`)
+			.expect(200)
+	});
+
+	it('GET /tx/:txnID/status -> 200', () => {
+		const txnID = 'id'
+		return request(app)
+			.get(`/tx/${txnID}/status`)
 			.expect(200)
 	});
 

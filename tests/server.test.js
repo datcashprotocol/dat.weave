@@ -159,6 +159,13 @@ describe('datweave API', () => {
 			.expect(404)
 	});
 
+	it('GET /tx/:txnID/status -> 200', () => {
+		const txnID = 'id'
+		return request(app)
+			.get(`/tx/${txnID}/status`)
+			.expect(200)
+	});
+
 	it('GET /mine --> 200 [not implemented]', () => {
 		return request(app)
 			.get('/mine')

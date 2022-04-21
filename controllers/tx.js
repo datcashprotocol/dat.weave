@@ -45,7 +45,7 @@ exports.tx_post = (req, res) => {
 
 */
 exports.tx_get_offset = (req, res) => {
-	console.log('GET /:txnID/offset')
+	console.log('GET /tx/:txnID/offset')
 
 	if(Object.keys(req.params).length === 0) {
 		res.status(404).end()
@@ -97,7 +97,7 @@ exports.tx_get_offset = (req, res) => {
 
 // TODO: idk what this api does yet
 exports.tx_get_status = (req, res) => {
-	console.log('GET /:txnID/status')
+	console.log('GET /tx/:txnID/status')
 
 	res.status(200).end()
 };

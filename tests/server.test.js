@@ -96,12 +96,23 @@ describe('datweave API', () => {
 			})
 	});
 	
-	//
+	// Get the last transaction, if first txn, then insert before returning
 	it('GET /wallet/:param/last_tx -> 200', () => {
 		return request(app)
 			.get(`/wallet/${address}/last_tx`)
 			.expect(200)
 	})
+
+	// Call /price again to simulate entire process. Should pass.
+	it('GET /price -> 200', () => {
+		const byte = 200
+		return request(app)
+			.get(`/price/${byte}`)
+			.expect(200)
+			.then((resp) => {
+				expect(resp.body).not.toBeNaN()
+			})
+	});
 
 	it('GET /tx_anchor -> 200', () => {
 		return request(app)

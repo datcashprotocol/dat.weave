@@ -32,4 +32,10 @@ describe('datweave API - simple', () => {
 			.get('/mine')
 			.expect(200)
 	});
+
+	it('GET /tx/:txnID/offset -> 404', () => {
+		return request(app)
+			.get('/tx/ /offset')
+			.expect(404)
+	});
 });

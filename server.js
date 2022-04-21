@@ -1,19 +1,12 @@
 /*
-A minimalist testing api for Arweave js
+A minimalist testing api for Arweave-js
 
 Author:
 Justin Chen
-
-Last updated:
-3/23/2022
 */
 
 const express = require('express')
 const bodyParser = require('body-parser')
-
-// TODO: Fix db.getCollectionNames
-// const utils = require('./utils')
-// utils.clear_mongo()
 
 require('dotenv').config()
 
@@ -31,13 +24,11 @@ app.use(bodyParser.urlencoded({
   extended: false,
 }))
 
-// app.use(express.json())
 
 app.use('/mine', require('./api/mine'))
 app.use('/mint', require('./api/mint'))
 app.use('/price', require('./api/price'))
 app.use('/tx', require('./api/tx'))
-app.use('/upload', require('./api/upload'))
 app.use('/chunk', require('./api/chunk'))
 app.use('/wallet', require('./api/wallet'))
 app.use('/tx_anchor', require('./api/tx_anchor'))

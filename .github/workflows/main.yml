@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
 
-
+# https://github.com/actions/example-services/issues/8#issuecomment-559484139
 services:
   mongodb:
     image: mongo:latest
@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
-        node-version: [12.x, 14.x, 16.x, 17.x, 18.x]
+        node-version: [12, 14, 16, 17, 18]
         # Node.js release schedule: https://nodejs.org/en/about/releases/
 
       # Advanced Node Github Actions https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#check-latest-version

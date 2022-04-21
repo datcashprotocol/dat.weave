@@ -7,17 +7,16 @@ on:
   pull_request:
     branches: [ main ]
 
-# https://github.com/actions/example-services/issues/8#issuecomment-559484139
-services:
-  mongodb:
-    image: mongo:latest
-    ports:
-      - 27017:27017
-
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on ${{ matrix.os }}
+    # https://github.com/actions/example-services/issues/8#issuecomment-559484139
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -32,7 +31,8 @@ jobs:
           cache: 'npm'
           cache-dependency-path: packages/package-lock.json
       - name: npm ci and test
-        run: npm ci       # clean install (ci) - https://docs.npmjs.com/cli/v8/commands/npm-ci
-        run: npm run test
+        run: |
+          npm ci       # clean install (ci) - https://docs.npmjs.com/cli/v8/commands/npm-ci
+          npm run test
       - name: RunID
         run: echo "RunID - ${ GITHUB_RUN_ID }"

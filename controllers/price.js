@@ -14,7 +14,6 @@ exports.uploadEstimate = (req, res) => {
 		if(price === undefined || price == null) {
 			// TODO: Update new way to get Arweave price data
 			res.status(200).json({ data: -1 })
-			return
 		}
 		else {
 			res.status(200).json({ data: price.data })

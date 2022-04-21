@@ -15,6 +15,24 @@ The order of tests follows the order in which the Arweave js framework calls end
 6. /uploadChunk
 7. /tx
 8. /mine
+
+Example sequence
+GET /mint
+GET /wallet/:param/balance
+GET /price/145479
+GET /tx_anchor
+GET /price/291808
+POST /tx
+POST /chunk
+POST /chunk
+GET /:txnID/status
+POST /wallet/dat
+GET /dat/:txnID
+GET /:txnID/offset
+GET /chunk
+GET /chunk
+GET /chunk
+GET /:txnID/status
 */
 describe('datweave API', () => {
 	beforeAll(() => {
@@ -39,12 +57,15 @@ describe('datweave API', () => {
 		return
 	});
 
+	// Should fail to get a wallet balance until wallet is created 
+	// on call to /mint
 	it('GET /wallet -> 404', () => {
 		return request(app)
 			.get(`/wallet/${utils.randomString(10)}/balance`)
 			.expect(404)
 	})
 
+	// Create wallet and for updating winstons
 	it('GET /mint -> 200', () => {
 		const winstons = 123
 
@@ -53,6 +74,7 @@ describe('datweave API', () => {
 			.expect(200)
 	})
 
+	// After calling /mint, should be able to get the balance
 	it('GET /wallet -> 10000 winstons', () => {
 		return request(app)
 			.get(`/wallet/${address}/balance`)
@@ -61,13 +83,9 @@ describe('datweave API', () => {
 				expect(resp.body).toEqual('123')
 			})
 	})
-	
-	it('GET /wallet/:param/last_tx -> 200', () => {
-		return request(app)
-			.get(`/wallet/${address}/last_tx`)
-			.expect(200)
-	})
 
+	// User enters new data and wallet calls /price to get
+	// updated cost estimate
 	it('GET /price -> 200', () => {
 		const byte = 100
 		return request(app)
@@ -77,6 +95,13 @@ describe('datweave API', () => {
 				expect(resp.body).not.toBeNaN()
 			})
 	});
+	
+	//
+	it('GET /wallet/:param/last_tx -> 200', () => {
+		return request(app)
+			.get(`/wallet/${address}/last_tx`)
+			.expect(200)
+	})
 
 	it('GET /tx_anchor -> 200', () => {
 		return request(app)
@@ -84,8 +109,13 @@ describe('datweave API', () => {
 			.expect(200)
 	})
 
+	// TODO: Test for one chunk of max size
+	// TODO: Test multiple chunks that succeeed
+	// TODO: Multiple mints in wallet transactions
+
+
 	// Nothing in db yet, so should expect 404
-	it('POST /chunk --> 200 #chunk 1', () => {
+	it('POST /chunk --> 404 #chunk 1', () => {
 		return request(app)
 			.post('/chunk')
 			.send({

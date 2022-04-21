@@ -1,5 +1,3 @@
-# Advanced Node Github Actions https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#check-latest-version
-
 name: Tests
 
 on:
@@ -24,6 +22,7 @@ jobs:
         node-version: [12.x, 14.x, 16.x, 17.x, 18.x]
         # Node.js release schedule: https://nodejs.org/en/about/releases/
 
+      # Advanced Node Github Actions https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#check-latest-version
       name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on ${{ matrix.os }}
 
       steps:

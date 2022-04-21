@@ -170,7 +170,13 @@ describe('datweave API', () => {
 		return request(app)
 			.post(`/wallet/dat?txnID=id&address=${address}`)
 			.expect(200)
-	})
+	});
+
+	it('GET /tx/dat/:address -> 200', () => {
+		return request(app)
+			.get(`/tx/dat/${address}`)
+			.expect(200)
+	});
 
 	it('GET /mine --> 200 [not implemented]', () => {
 		return request(app)

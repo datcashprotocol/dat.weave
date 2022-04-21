@@ -1,14 +1,14 @@
 /*
-
+Associate wallets to transactions so can query
 */
 
 const mongo = require('mongodb')
 
-// Get all transactions from a given transaction
+// Get all transactions from a given wallet
 exports.tx = (req, res) => {
-	console.log('GET /dat/:txnID')
+	console.log('GET /tx/dat/:address')
 
-	const query = { address: req.params.txnID } 
+	const query = { address: req.params.address } 
 	const MongoClient = mongo.MongoClient;
 
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {

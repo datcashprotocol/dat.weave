@@ -8,7 +8,7 @@ dat = require('../controllers/dat/tx.js')
 router.post('/', api.tx_post) 
 router.get('/:txnID/offset', api.tx_get_offset)
 router.get('/:txnID/status', api.tx_get_status)
-router.get('/dat/:txnID', dat.tx)
+router.get('/dat/:address', dat.tx)
 router.post('/clear', dat.clear)
 
 module.exports = router

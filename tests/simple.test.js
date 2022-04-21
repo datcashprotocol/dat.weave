@@ -16,8 +16,17 @@ The order of tests follows the order in which the Arweave js framework calls end
 7. /tx
 8. /mine
 */
-describe('datweave API - example upload', () => {
-
+describe('datweave API - simple', () => {
+	it('GET /price -> 200', () => {
+		const byte = 'abc'
+		return request(app)
+			.get(`/price/${byte}`)
+			.expect(404)
+			.then((resp) => {
+				expect(resp.body).not.toBeNaN()
+			})
+	});
+	
 	it('GET /mine --> 200 [not implemented]', () => {
 		return request(app)
 			.get('/mine')

@@ -1,7 +1,7 @@
 const express = require('express')
 router = express.Router()
-api = require('../controllers/price.js')
+api = require('../controllers/mint.js')
 
-router.get('/*', api.uploadEstimate)
+router.get('/*', api.mint)
 
 module.exports = router

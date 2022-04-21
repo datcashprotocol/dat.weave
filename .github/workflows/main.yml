@@ -1,4 +1,6 @@
-name: test
+# Advanced Node Github Actions https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#check-latest-version
+
+name: Jest Unit Tests
 on:
   push:
     branches: [ main ]
@@ -15,16 +17,13 @@ services:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
-        node-version: [12, 14, 16, 17, 18]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [12.x, 14.x, 16.x, 17.x, 18.x]
         # Node.js release schedule: https://nodejs.org/en/about/releases/
-
-      # Advanced Node Github Actions https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#check-latest-version
-      name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on ${{ matrix.os }}
-
-      steps:
+    steps:
       - uses: actions/checkout@v3
       - name: Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3

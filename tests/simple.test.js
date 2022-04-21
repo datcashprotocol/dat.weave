@@ -38,4 +38,11 @@ describe('datweave API - simple', () => {
 			.get('/tx/ /offset')
 			.expect(404)
 	});
+
+	it('GET /tx/dat/:address -> 404', () =>{
+		const address = '0xDNE'
+		return request(app)	
+			.get(`/tx/dat/${address}`)
+			.expect(404)
+	});
 });

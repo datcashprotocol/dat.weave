@@ -4,7 +4,7 @@ exports.uploadEstimate = (req, res) => {
 	const bytes = req.originalUrl.split('/').at(-1) // TODO: make into a :bytes param in api/price.js
 	console.log(`GET /price/${bytes}`)
 	
-	axios.get(`https://arweave.net/price/${bytes}`)
+	axios.get(`https://arweave.net/price/${bytes}`, { timeout: 10000 })
 	.catch((err) => {
 		// if cannont reach, send back resp anyways. e.g. dev'ing locally.
 		res.status(404).json({ data: -1 })

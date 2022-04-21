@@ -45,4 +45,11 @@ describe('datweave API - simple', () => {
 			.get(`/tx/dat/${address}`)
 			.expect(404)
 	});
+
+	it('POST /wallet/dat -> 404', () => {
+		const address = '0xDNE'
+		return request(app)
+			.post(`/wallet/dat?address=${address}`)
+			.expect(404)
+	});
 });

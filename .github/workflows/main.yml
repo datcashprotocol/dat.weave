@@ -21,7 +21,7 @@ jobs:
 
       strategy:
         matrix:
-          os: [ubuntu-latest, macos-latest, windows-latest]
+          os: [ubuntu-latest, windows-latest, macOS-latest]
           node-version: [12.x, 14.x, 16.x, 17.x, 18.x]
           # Node.js release schedule: https://nodejs.org/en/about/releases/
 
@@ -29,12 +29,13 @@ jobs:
 
       steps:
       - uses: actions/checkout@v3
-      - name: Jest Node.js ${{ matrix.node-version }}
+      - name: Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path: packages/package-lock.json
+      - name: npm ci and test
         run: npm ci       # clean install (ci) - https://docs.npmjs.com/cli/v8/commands/npm-ci
         run: npm run test
       - name: RunID

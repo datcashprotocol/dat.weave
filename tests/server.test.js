@@ -27,8 +27,8 @@ POST /chunk
 POST /chunk
 GET /:txnID/status
 POST /wallet/dat
-GET /dat/:txnID
-GET /:txnID/offset
+GET /tx/dat/:address
+GET /tx/:txnID/offset
 GET /chunk
 GET /chunk
 GET /chunk
@@ -177,6 +177,13 @@ describe('datweave API', () => {
 			.get(`/tx/dat/${address}`)
 			.expect(200)
 	});
+
+	it('GET /tx/:txnID/offset -> 200', () => {
+		const txnID = 'id'
+		return request(app)
+			.get(`/tx/${txnID}/offset`)
+			.expect(200)
+	})
 
 	it('GET /mine --> 200 [not implemented]', () => {
 		return request(app)

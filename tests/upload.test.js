@@ -25,11 +25,11 @@ GET /chunk
 GET /:txnID/status
 */
 describe('datweave API - upload', () => {
-	beforeAll(async () => {
+	beforeAll(() => {
         return utils.startDB()
     });
 
-    afterAll(async () => {
+    afterAll(() => {
         return utils.stopDB()
     });
 

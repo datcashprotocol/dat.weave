@@ -29,7 +29,7 @@ describe('datweave API - simple', () => {
 		const byte = 'abc'
 		return request(app)
 			.get(`/price/${byte}`)
-			.expect(404)
+			.expect([404, 500])
 			.then((resp) => {
 				expect(resp.body).not.toBeNaN()
 			})

@@ -25,5 +25,5 @@ jobs:
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm ci       # clean install (ci) - https://docs.npmjs.com/cli/v8/commands/npm-ci
-      - run: npm run test
+      - run: npm run workflow
       - run: echo "RunID - ${ GITHUB_RUN_ID }"

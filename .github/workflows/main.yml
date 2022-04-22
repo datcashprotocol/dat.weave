@@ -26,4 +26,4 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm ci       # clean install (ci) - https://docs.npmjs.com/cli/v8/commands/npm-ci
       - run: npm run workflow
-      env: CI: true
+    env: CI: true

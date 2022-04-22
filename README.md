@@ -1,7 +1,7 @@
 # datweave
 Minimalist backend simulation for developing on Arweave
 
-Transactions are cached and should be retrieved whenever displaying contents of a wallet.
+![example workflow](https://github.com/DAT-Cash/datweave/actions/workflows/main.yml/badge.svg)
 
 ### Installation
 1. In the root directory: `npm install`
@@ -37,8 +37,9 @@ MODE=test
 `npm run dev` with `MODE=dev` will listen to port `1984` and with `MODE=test` will run via Jest.
 
 ### Run Jest unit tests
-Open a separate terminal and enter: `npm run test`.
+`npm run test`
 This will watch for changes and immediately run tests.
+Do not need to open in a new terminal or have MongoDB or Node running. Jest and MongoMemoryServer will take care of this, but do need to set `MODE=test`.
 
 ### How this repo is structured
 

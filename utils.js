@@ -1,4 +1,13 @@
+/*
+MongoMemoryServer docs:
+https://nodkz.github.io/mongodb-memory-server/docs/guides/integration-examples/test-runners
+*/
+
 const mongo = require('mongodb')
+const mongoose = require('mongoose')
+const MongoMemoryServer = require('mongodb-memory-server').MongoMemoryServer
+
+const dbname = 'datweave'
 
 exports.clear_mongo = () => {
 	const MongoClient = mongo.MongoClient;
@@ -36,3 +45,20 @@ exports.randomString = (length) => {
     return result
 }
 
+exports.startDB = async function () {
+	const server = await MongoMemoryServer.create()
+
+    const opts = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    };
+
+    const uri = server.getUri(dbname)
+    await mongoose.connect(uri, opts);
+};
+
+exports.stopDB = async function () {
+	const server = await MongoMemoryServer.create()
+    await mongoose.disconnect();
+    await server.stop();
+};

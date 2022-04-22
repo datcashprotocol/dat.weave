@@ -9,30 +9,22 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on ${{ matrix.os }}
-    # https://github.com/actions/example-services/issues/8#issuecomment-559484139
-    services:
-      mongodb:
-        image: mongo:latest
-        ports:
-          - 27017:27017
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [12.x, 14.x, 16.x, 17.x, 18.x]
-        # Node.js release schedule: https://nodejs.org/en/about/releases/
+        node-version: [14.x, 16.x]
+        mongodb-version: ['4.2', '4.4', '5.0']
     steps:
       - uses: actions/checkout@v3
-      - name: Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-          cache-dependency-path: packages/package-lock.json
-      - name: npm ci and test
-        run: |
-          npm ci       # clean install (ci) - https://docs.npmjs.com/cli/v8/commands/npm-ci
-          npm run test
-      - name: RunID
-        run: echo "RunID - ${ GITHUB_RUN_ID }"
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+      - run: npm ci       # clean install (ci) - https://docs.npmjs.com/cli/v8/commands/npm-ci
+      - run: npm run workflow
+    env: 
+      CI: true

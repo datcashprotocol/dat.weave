@@ -25,6 +25,14 @@ GET /chunk
 GET /:txnID/status
 */
 describe('datweave API - upload', () => {
+	beforeAll(async () => {
+        return utils.startDB()
+    });
+
+    afterAll(async () => {
+        return utils.stopDB()
+    });
+
 	it('POST /wallet/clear -> 200', () => {
 		return request(app)
 			.post('/wallet/clear')

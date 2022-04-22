@@ -17,6 +17,14 @@ The order of tests follows the order in which the Arweave js framework calls end
 8. /mine
 */
 describe('datweave API - simple', () => {
+	beforeAll(async () => {
+        return utils.startDB()
+    });
+
+    afterAll(async () => {
+        return utils.stopDB()
+    });
+
 	it('GET /price -> 200', () => {
 		const byte = 'abc'
 		return request(app)

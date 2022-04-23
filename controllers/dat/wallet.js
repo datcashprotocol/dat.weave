@@ -13,6 +13,10 @@ exports.wallet = (req, res) => {
 	const araddress = query.address
 	const MongoClient = mongo.MongoClient
 
+	if(txnID === undefined || araddress === undefined) {
+		res.status(400).end()
+	}
+
 	MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
 		if(err) throw err;
 		const datweave = db.db('datweave')
@@ -66,6 +70,7 @@ exports.clear = (req, res) => {
 		if (err) throw err;
 
 		datweave.dropCollection('wallets', (err, ok) => {
+			db.close()
 			res.status(200).end()
 		})
 	})

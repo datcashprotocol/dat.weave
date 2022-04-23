@@ -46,6 +46,7 @@ exports.clear = (req, res) => {
 		if (err) throw err;
 
 		datweave.dropCollection('transactions', (err, ok) => {
+			db.close()
 			res.status(200).end()
 		})
 	});

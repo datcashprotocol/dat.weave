@@ -1,11 +1,7 @@
 # Advanced Node Github Actions https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#check-latest-version
 
 name: Jest Unit Tests
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
   build:

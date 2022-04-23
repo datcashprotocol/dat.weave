@@ -1,5 +1,5 @@
 # datweave
-Minimalist backend simulation for developing on Arweave
+Minimalist backend simulation for developing with [Arweave-js](https://github.com/ArweaveTeam/arweave-js)
 
 ![example workflow](https://github.com/DAT-Cash/datweave/actions/workflows/main.yml/badge.svg)
 
@@ -44,6 +44,35 @@ Do not need to open in a new terminal or have MongoDB or Node running. Jest and 
 ### How this repo is structured
 
  - /dat contains endpoints specific to datweave. Needed to have a way to relate wallets to their transactions without relying on retrieving metadata from Solana so that datweave can be used independently offline.
+
+### Example usage
+
+#### Upload to datweave
+Example of how to upload large files to Arweave from the Arweave-js README.md:
+```
+let data = fs.readFileSync('path/to/file.pdf'); // get the same data
+let resumeObject = JSON.parse(savedUploader); // get uploader object from where you stored it.
+
+let uploader = await arweave.transactions.getUploader(resumeObject, data);
+while (!uploader.isComplete) {
+  await uploader.uploadChunk();
+}
+```
+
+After uploading data to Arweave, datweave expects the following call to associate the transaction id with wallet address that it belongs to.
+
+This is a simplication of what Arweave does in production.
+```
+arweave.api.post(`/wallet/dat?address=${arweaveAddress}&txnID=${txId}`)
+```
+
+#### Query wallet transactions
+```
+async findDataByOwner(address) {
+  return (await arweave.api.get(`/tx/dat/${address}`)).data.transactions
+}
+```
+
 
 ### Mongo shell commands
 

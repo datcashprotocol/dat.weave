@@ -5,6 +5,8 @@ const utils = require('../utils')
 
 const address = utils.randomString(10)
 
+jest.setTimeout(30000)
+
 /*
 The order of tests follows the order in which the Arweave js framework calls endpoints
 1. /wallet
@@ -54,10 +56,17 @@ describe('datweave API - simple', () => {
 			.expect(404)
 	});
 
-	it('POST /wallet/dat -> 404', () => {
+	it('POST /wallet/dat -> 400', () => {
 		const address = '0xDNE'
 		return request(app)
 			.post(`/wallet/dat?address=${address}`)
-			.expect(404)
+			.expect(400)
+	});
+
+	it('POST /wallet/dat -> 400', () => {
+		const txnID = '0xDNE'
+		return request(app)
+			.post(`/wallet/dat?txnID=${txnID}`)
+			.expect(400)
 	});
 });

@@ -5,6 +5,8 @@ const utils = require('../utils')
 
 const address = utils.randomString(10)
 
+jest.setTimeout(30000)
+
 /*
 Example sequence
 GET /mint

@@ -1,11 +1,7 @@
 # Advanced Node Github Actions https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#check-latest-version
 
 name: Jest Unit Tests
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -25,6 +21,6 @@ jobs:
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm ci       # clean install (ci) - https://docs.npmjs.com/cli/v8/commands/npm-ci
-      - run: npm run workflow
+      - run: npm run workflow --watchAll=false
     env: 
       CI: true

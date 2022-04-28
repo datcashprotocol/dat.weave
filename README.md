@@ -5,11 +5,26 @@ Minimalist backend simulation for developing with [Arweave-js](https://github.co
 
 ### Installation
 1. In the root directory: `npm install`
-2. Install MongoDb
+2. [Install MongoDb](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/)
 3. Open a terminal and start the MongoDB daemon
 
-For OSX
+For OSX M1
+Install Rosetta
 ```
+1. Open Finder and navigate to Applications/Utilities
+2. Right click on Terminal
+3. Check the box for "Open using Rosetta"
+4. Install
+```
+
+Then install Mongo with brew:
+```
+brew tap mongodb/brew
+
+brew update
+
+brew install mongodb-community@5.0
+
 brew services start mongodb-community@5.0
 
 mongosh
